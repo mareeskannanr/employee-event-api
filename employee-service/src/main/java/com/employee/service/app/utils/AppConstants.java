@@ -47,5 +47,15 @@ public class AppConstants {
     public static final String CREATE_DEP_NOTE = "\"id\" will generate automatically while saving department, So remove <b>\"id\"</b> property in your request body";
     public static final String CREATE_EMP_NOTE = "\"uuid\" will generate automatically while saving department, So remove <b>\"uuid\"</b> property in your request body \n" + BDAY_FORMAT;
 
+    public static final String EMPLOYEE_MODEL_DESCRIPTION = "This model represents employees of various departments of a company";
+    public static final String EMPLOYEE_EMAIL_NOTE = "Email Id must be unique i.e. 2 employees cannot have the same email.";
+    public static final String EMPLOYEE_EMAIL_EXAMPLE = "employee@company.com";
+    public static final String EMPLOYEE_UUID_NOTE = "Auto generated value when creating an employee. Don't include while creating new employee recor. But including while update employee record";
+    public static final String EMPLOYEE_BIRTHDAY_NOTE = "Birthday should in the format (YYYY-MM-DD)";
+    public static final String EMPLOYEE_DEPARTMENT_NOTE = "Existing Department's Id";
+
+    public static final String DEPARTMENT_MODEL_DESCRIPTION = "This model represents various departments of a company";
+    public static final String DEPARTMENT_NAME_NOTE = "Name must be unique i.e. 2 departments cannot have the same name.";
+    public static final String DEPARTMENT_ID_NOTE = "Auto generated value when creating a department. Don't include while creating new department record";
 
 }
