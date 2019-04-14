@@ -63,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             action = Action.UPDATE;
         }
 
-        //Check for duplicate email Id
+        //Check for duplicate email Id for other employee's uuid
         previousEmployee = employeeRepository.findByEmail(employee.getEmail());
         if(previousEmployee != null && (employee.getUuid() == null || !previousEmployee.getUuid().equals(employee.getUuid()))) {
             throw new AppException(EMAIL_EXISTS);
