@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    container_name: zookeeper
+    restart: always
+    ports:
+      - 2181:2181
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    restart: always
+    ports:
+      - 9092:9092
+    depends_on:
+      - zookeeper
+    links:
+      - zookeeper:zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+
+  db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_DATABASE: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres:/var/lib/postgresql
+
+  employee-service:
+    restart: always
+    build: ./employee-service
+    working_dir: /employee-service
+    volumes:
+      - ./employee-service:/employee-service
+      - ~/.m2:/root/.m2
+    ports:
+      - "1500:8080"
+    command: mvn clean spring-boot:run
+    depends_on:
+      - db
+      - kafka
+
+  event-service:
+    restart: always
+    build: ./event-service
+    working_dir: /event-service
+    volumes:
+      - ./event-service:/event-service
+      - ~/.m2:/root/.m2
+    ports:
+      - "2000:8081"
+    command: mvn clean spring-boot:run
+    depends_on:
+      - db
+      - kafka 
