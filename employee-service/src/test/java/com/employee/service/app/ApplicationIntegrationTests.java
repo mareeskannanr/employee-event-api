@@ -1,5 +1,6 @@
 package com.employee.service.app;
 
+import com.employee.service.app.config.KafkaTestConfig;
 import com.employee.service.app.models.Department;
 import com.employee.service.app.models.Employee;
 import com.employee.service.app.utils.TestUtils;
@@ -32,7 +33,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {KafkaTestConfig.class})
 @EmbeddedKafka(topics = KAFKA_TOPIC, controlledShutdown = true, brokerProperties = {"listeners=PLAINTEXT://localhost:3333", "port=3333"})
 @ActiveProfiles("test")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
