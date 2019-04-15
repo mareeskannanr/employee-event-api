@@ -1,6 +1,8 @@
 package com.employee.service.app.config;
 
+import com.employee.service.app.utils.AppConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -15,9 +17,12 @@ public class KafkaTestConfig {
     @Autowired
     private EmbeddedKafkaBroker embeddedKafkaBroker;
 
+    @Value(AppConstants.KAFKA_TOPIC)
+    private String topic;
+
     @Bean
     public EmbeddedKafkaBroker embeddedKafkaBroker() {
-        return new EmbeddedKafkaBroker(1, true, 1, "employees");
+        return new EmbeddedKafkaBroker(1, true, 1, topic);
     }
 
     @Bean
